@@ -1,7 +1,6 @@
 from nevow import rend
 import datetime
 from string import Template
-from math import floor
 
 class StatsServer(rend.Page):
     addSlash = True
@@ -26,8 +25,8 @@ class StatsServer(rend.Page):
 
         pagestr = Template(pagestr).safe_substitute(
             time_elapsed = str(time_elapsed),
-            tweets_per_hour = str(int(floor(self.scanner.stats.nb_of_tweets*3600.0/time_elapsed.seconds))),
-            tweets_per_day = str(int(floor(self.scanner.stats.nb_of_tweets*3600.0*24/time_elapsed.seconds))),
+            tweets_per_hour = str(int(self.scanner.stats.nb_of_tweets*3600.0/time_elapsed.seconds)),
+            tweets_per_day = str(int(self.scanner.stats.nb_of_tweets*3600.0*24/time_elapsed.seconds)),
         )
         zeigeist= sorted(self.scanner.stats._hashtags.items(), key=lambda x:-x[1])
         for i in xrange(20):
