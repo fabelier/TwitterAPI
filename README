@@ -1,22 +1,7 @@
-rch, 23th, 7pm @ CRI by Joaquin Keller
-About this Workshop
 
 The idea is to catch the stream of all tweets (~ 100 millions daily) and process them to extract the hashtag zeitgeist, ie the most popular hashtags of the moment. This program consisting of few dozen lines of python will be modified during the workshop to filter out and processing the tweets according to the attendants suggestions. 
 Prepare this Workshop
 
 You need to install Python ( http://www.python.org/download/ ) - ( the code we are going to use was not tested with Python 3.X, so if you're new to it, go for 2.X versions ). 
-You need to install Twisted, a python module ( http://fabelier.org/wiki/doku.php?id=web_collage_with_twisted ) 
-=== Live documents 
-blackboard : https://docs.google.com/document/d/17y3MKg1zEPoCnAluN8j0yHVJu0mW4RtlFwfKce_uotI/edit?hl=en&authkey=CJivmOEM
-
-
-Stream Video : http://www.livestream.com/twitterapi?t=968828
-
-
-get_tweets.tac.py : https://docs.google.com/document/d/12ht1J-nGVQsw3wwAeti3_E69vc7O0z-RKkG93gHjuco/edit?hl=en&authkey=CMjazOcJ
-
-
-get_tweets.py : https://docs.google.com/document/d/13dmelEKnxGax16UyZrwJJI89Y3Q_na8-C3BCBALAcd8/edit?hl=en&authkey=CPT0i5wO
-
-
-stats_server.py : https://docs.google.com/document/d/1L9V4u7UfgzR1dpSMDPigY9N0UHlnSOhjbb6q-_QRDwg/edit?hl=en&authkey=CMb0-pME
+You also need to install the following python modules: twisted, nevow and simplejson
+To easiest way to install python modules is by using easy_install ( http://pypi.python.org/pypi/setuptools )
