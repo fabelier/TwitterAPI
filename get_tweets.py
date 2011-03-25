@@ -6,8 +6,8 @@ import datetime
 import base64
 
 class GetStream:
-    username = "afabelierWS"
-    password = "fabelier"
+    username = "your_twitter_id"
+    password = "the_corresponding_password"
     def __init__(self):
         self.start()
         self.chunk = ""
