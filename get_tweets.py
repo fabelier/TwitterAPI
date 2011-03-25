@@ -1,12 +1,13 @@
 import simplejson
 from twisted.web import client
 from twisted.internet import reactor
+import datetime
 
 import base64
 
 class GetStream:
-    username = "YOUR_USERNAME"
-    password = "YOUR_PASSWORD"
+    username = "afabelierWS"
+    password = "fabelier"
     def __init__(self):
         self.start()
         self.chunk = ""
@@ -45,11 +46,14 @@ class GetStream:
                 self.stats.nb_of_tweets+=1
                 text = safe_str(status["text"])
                 if '#' not in text: continue
-                print text
+                #print text
                 hashtags = status.get("entities",dict()).get("hashtags",[])
                 hashtags = [safe_str(e.get("text")).lower() for e in hashtags if "text" in e]
                 for hashtag in hashtags:
                     self.stats._hashtags[hashtag] = self.stats._hashtags.get(hashtag,0)+1
+                    
+                    if not self.stats._hashtags_timeline.get(hashtag):      self.stats._hashtags_timeline[hashtag] = []
+                    self.stats._hashtags_timeline[hashtag].insert(0,datetime.datetime.utcnow())
 
             except Exception, e:
                 #continue
@@ -58,11 +62,31 @@ class GetStream:
                 print 50*"-"
                 print status_json
                 print 50*"*"
+                
+        if datetime.datetime.utcnow() - self.stats.last_cleanup_time > datetime.timedelta(minutes=1): self.stats.clean_up()
 
 class Stats:
     def __init__(self):
         self.nb_of_tweets = 0
         self._hashtags = dict()
+        self._hashtags_timeline = dict()
+        self.last_cleanup_time = datetime.datetime.utcnow()
+        
+    def clean_up(self):
+        for h, tl in self._hashtags_timeline.items():
+            while tl:
+                old = tl.pop()
+                if not ( datetime.datetime.utcnow() - old > datetime.timedelta(hours=1) ):
+                    tl.append(old)
+                    break
+            self._hashtags[h] = len(tl)
+            if not tl:
+                try: del(self._hashtags[h])
+                except: pass
+                try: del(self._hashtags_timeline[h])
+                except: pass
+        self.last_cleanup_time = datetime.datetime.utcnow()
+
 
 
 
