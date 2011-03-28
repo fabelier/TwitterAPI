@@ -5,9 +5,14 @@ import datetime
 
 import base64
 
+from ConfigParser import ConfigParser
+
+config = ConfigParser()
+config.read("CONFIG.DAT")
+
 class GetStream:
-    username = "your_twitter_id"
-    password = "the_corresponding_password"
+    username = config.get("twitter","username")
+    password = config.get("twitter","password")
     def __init__(self):
         self.start()
         self.chunk = ""
